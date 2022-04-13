@@ -2,7 +2,7 @@ const express = require('express');
 const querystring = require('qs');
 
 const clientId = process.env.CLIENT_ID;
-const redirectUri = 'http://localhost:9000/api/authenticate';
+const redirectUri = `${process.env.BASE_URL}/api/authenticate`;
 
 const router = express.Router();
 

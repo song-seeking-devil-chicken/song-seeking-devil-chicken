@@ -4,6 +4,7 @@ const axios = require('axios');
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
+const redirectUri = `${process.env.BASE_URL}/api/authenticate`;
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ async function getAccessToken(code, state) {
       code,
       state,
       grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:9000/api/authenticate',
+      redirect_uri: redirectUri,
       client_id: clientId,
       client_secret: clientSecret,
     });
