@@ -29,6 +29,11 @@ function generateRandomString(length) {
  */
 router.get('/', (req, res) => {
   const state = generateRandomString(16);
+  /**
+   * TODO:
+   * You can modify the scope...
+   * https://developer.spotify.com/console/get-current-user/ -> press GET TOKEN
+   */
   const scope = 'user-read-private user-read-email';
 
   res.redirect(`https://accounts.spotify.com/authorize?${querystring.stringify({
