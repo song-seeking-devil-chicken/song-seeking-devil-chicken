@@ -11,9 +11,9 @@ const router = express.Router();
  * @param {String} code
  * @param {String} state
  * @returns {Object}
- * Based on the "code" and "state" parameters
- * (derived from query parameters of the redirect link after a user signs in with Spotify),
- * retrieve an access and refresh token from Spotify so that the user of Song Seeking Devil Chicken
+ * Based on the "code" and "state" parameters, which are
+ * derived from query parameters of the redirect link after a user signs in with Spotify.
+ * Retrieves an access and refresh token from Spotify so that the user of Song Seeking Devil Chicken
  * can interact with the Spotify API.
  */
 async function getAccessToken(code, state) {
