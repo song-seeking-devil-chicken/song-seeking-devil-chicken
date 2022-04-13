@@ -64,3 +64,8 @@ body {
   border: none;
   font-size: 1em;
 }
+
+.songData {
+  display: grid;
+  grid-template-columns: 10em, 10em;
+}

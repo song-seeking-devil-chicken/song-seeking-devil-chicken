@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SongData() {
+  const [loading, setLoading] = useState(true);
+
+  function loadSongs() {
+    setLoading(false);
+  }
+
+  if (loading) {
+    return (
+      <div>
+        Loading...
+        <button type="button" onClick={loadSongs}>Click here to load</button>
+      </div>
+    );
+  }
+
   return (
     <div className="songData">
-      Test
+      <span>Acousticness:</span>
+      <span>1</span>
+      <span>Danceability:</span>
+      <span>1</span>
+      <span>Energy:</span>
+      <span>1</span>
+      <span>Key:</span>
+      <span>C#</span>
+      <span>Liveness:</span>
+      <span>1</span>
     </div>
   );
 }
