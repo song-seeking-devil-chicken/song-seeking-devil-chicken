@@ -69,3 +69,8 @@ body {
   display: grid;
   grid-template-columns: 10em, 10em;
 }
+
+.profileUserInfo {
+  display: flex;
+  flex-direction: column;
+}
