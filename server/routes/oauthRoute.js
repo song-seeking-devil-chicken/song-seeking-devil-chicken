@@ -1,6 +1,8 @@
 const express = require('express');
 const querystring = require('qs');
 const axios = require('axios');
+// const { json } = require('body-parser');
+const Session = require('../models/Session');
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -43,6 +45,18 @@ async function getAccessToken(code, state) {
   }
 }
 
+async function getUserEmail(accessToken) {
+  const response = await axios.get('https://api.spotify.com/v1/me', {
+    headers: {
+      // TODO: Authorization is more than just the access token...
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  });
+  return response.data.email;
+}
+
 /**
  * Calls getAccessToken().
  * Stores the access and refresh token granted by Spotify.
@@ -65,8 +79,17 @@ router.get('/', async (req, res) => {
      * determine appropriate redirect
      * store access token on server side
      */
-    console.log('ACCESS TOKEN:', accessToken);
-    console.log('REFRESH TOKEN:', refreshToken);
+    // console.log('ACCESS TOKEN:', accessToken);
+    // console.log('REFRESH TOKEN:', refreshToken);
+    const email = await getUserEmail(accessToken);
+    const newSession = await Session.create({
+      email,
+      authToken: accessToken,
+      refToken: refreshToken,
+    });
+
+    // TODO: create cookie
+    res.cookie('session-id', newSession.id);
     res.redirect('http://localhost:9000/profile');
   }
 });
