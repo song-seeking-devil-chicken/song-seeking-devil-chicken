@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Open+Sans&family=Oswald&family=Ubuntu&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #b1b3c9;
+}
+
+.mainPage {
+  display:flex;
+  font-family: 'Ubuntu', sans-serif;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.navBarContainer {
+  display: flex;
+  flex: 1 1 1;
+  align-items: center;
+  justify-content: center;
+  background-color: #1B1212;
+  border-bottom: #1db954 10px solid;
+  align-items: center;
+  font-size: 20px;
+  width: 100vw;
+  height: 100px;
+  gap: 3em;
+}
+
+.navBar {
+  display: flex;
+  width: 75vw;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+.navBar a {
+  color: white;
+  text-decoration: none;
+}
+
+.searchContainer {
+  display: flex;
+  width: 70em;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.songSearch input {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid black 1px;
+  margin: 0 1em 0 1em;
+}
+
+.songSearch input:focus {
+  outline: none;
+}
+
+.songSearch select {
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+}
+
+.songData {
+  display: grid;
+  grid-template-columns: 10em, 10em;
+}

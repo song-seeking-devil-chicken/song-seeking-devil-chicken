@@ -32,6 +32,15 @@ module.exports = {
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
+          },
+        },
+      },
     ],
   },
   devServer: {
@@ -39,7 +48,7 @@ module.exports = {
     compress: true,
     historyApiFallback: true,
     static: {
-      directory: path.resolve(__dirname, './dist'),
+      directory: path.resolve(__dirname, './client'),
     },
     proxy: {
       '/': 'http://localhost:3000',
