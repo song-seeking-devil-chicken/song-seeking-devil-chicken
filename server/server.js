@@ -1,12 +1,15 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+
 require('dotenv').config();
 
 // initialize Express app and establish server port number
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 const PORT = process.env.PORT || 3000;
 
 // connect to the MongoDB database
@@ -21,6 +24,7 @@ const controllers = require('./controllers/controllers');
 // require routes
 const loginRoute = require('./routes/loginRoute');
 const oauthRoute = require('./routes/oauthRoute');
+const checkAuthRoute = require('./routes/checkAuthRoute');
 
 /**
  * TODO: /api/login never actually reaches the final middleware function
@@ -35,6 +39,8 @@ app.use('/api/login', loginRoute, (req, res) => res.sendStatus(200));
  * User is given an access and refresh token here so that they can use the Spotify API.
  */
 app.use('/api/authenticate', oauthRoute, (req, res) => res.sendStatus(200));
+
+app.use('/api/checkAuth', checkAuthRoute, (req, res) => res.sendStatus(200));
 
 // should add a song to the database using the songSchema defined in models.js
 app.post('/api/addSong', controllers.addSong, (req, res) => {
