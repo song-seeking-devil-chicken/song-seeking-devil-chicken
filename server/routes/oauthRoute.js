@@ -23,7 +23,7 @@ async function getAccessToken(code, state) {
       code,
       state,
       grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:9000/authenticate',
+      redirect_uri: 'http://localhost:9000/api/authenticate',
       client_id: clientId,
       client_secret: clientSecret,
     });
@@ -66,7 +66,7 @@ router.get('/', async (req, res) => {
      */
     console.log('ACCESS TOKEN:', accessToken);
     console.log('REFRESH TOKEN:', refreshToken);
-    res.redirect('http://localhost:3000/profile');
+    res.redirect('http://localhost:9000/profile');
   }
 });
 

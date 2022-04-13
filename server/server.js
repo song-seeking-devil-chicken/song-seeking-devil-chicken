@@ -34,7 +34,7 @@ app.use('/api/login', loginRoute, (req, res) => res.sendStatus(200));
  * Once a user logs in, they are redirected here.
  * User is given an access and refresh token here so that they can use the Spotify API.
  */
-app.use('/authenticate', oauthRoute, (req, res) => res.sendStatus(200));
+app.use('/api/authenticate', oauthRoute, (req, res) => res.sendStatus(200));
 
 // should add a song to the database using the songSchema defined in models.js
 app.post('/api/addSong', controllers.addSong, (req, res) => {

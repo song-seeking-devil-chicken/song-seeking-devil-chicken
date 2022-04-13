@@ -18,7 +18,7 @@ export default function App() {
               width: '4em',
             }}
           />
-          <Link to={{ pathname: '/api/login' }}>Log in</Link>
+          <a href="/api/login">Sign In</a>
           <Link to="/profile">Profile</Link>
           <Link to="/songsearch">Song Search</Link>
           <Link to="/playlists">Playlists</Link>

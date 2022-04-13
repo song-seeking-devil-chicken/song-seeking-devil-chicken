@@ -2,7 +2,7 @@ const express = require('express');
 const querystring = require('qs');
 
 const clientId = process.env.CLIENT_ID;
-const redirectUri = 'http://localhost:9000/authenticate';
+const redirectUri = 'http://localhost:9000/api/authenticate';
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ function generateRandomString(length) {
 
 /**
  * Redirects user to Spotify login page.
- * Once the user logs in, they are redirected to /authenticate,
+ * Once the user logs in, they are redirected to /api/authenticate,
  * where they are granted an access and refresh token to access the Spotify API.
  */
 router.get('/', (req, res) => {
