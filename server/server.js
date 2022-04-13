@@ -1,11 +1,9 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const querystring = require('qs');
-const axios = require('axios');
 require('dotenv').config();
 
-// initialize Express app,  and establish port number
+// initialize Express app and establish server port number
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,58 +20,21 @@ const controllers = require('./controllers/controllers');
 
 // require routes
 const loginRoute = require('./routes/loginRoute');
+const oauthRoute = require('./routes/oauthRoute');
 
 /**
- * handles requests when user logs in
- * user is redirected to Spotify login here
+ * TODO: /api/login never actually reaches the final middleware function
+ * Handles requests when user logs in to Song Seeking Devil Chicken.
+ * User is redirected to Spotify login via this route.
  */
 app.use('/api/login', loginRoute, (req, res) => res.sendStatus(200));
 
-async function getAccessToken(code, state) {
-  try {
-    const tokenUrl = 'https://accounts.spotify.com/api/token';
-    const data = querystring.stringify(
-      {
-        code,
-        state,
-        grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:9000/discover',
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
-      },
-    );
-    const response = await axios.post(tokenUrl, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-    return response.data.access_token;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
-
-app.get('/discover', async (req, res) => {
-  const code = req.query.code || null;
-  const state = req.query.state || null;
-  console.log('code:', code);
-  console.log('state:', state);
-
-  if (state === null) {
-    res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
-  } else {
-    const accessToken = await getAccessToken(code, state);
-    // TODO:
-    // determine appropriate redirect
-    // store access token on server side
-    console.log(accessToken);
-    res.redirect('http://localhost:3000/profile');
-  }
-});
+/**
+ * TODO: /authenticate never actually reaches the final middleware function
+ * Once a user logs in, they are redirected here.
+ * User is given an access and refresh token here so that they can use the Spotify API.
+ */
+app.use('/authenticate', oauthRoute, (req, res) => res.sendStatus(200));
 
 // should add a song to the database using the songSchema defined in models.js
 app.post('/api/addSong', controllers.addSong, (req, res) => {

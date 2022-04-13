@@ -1,17 +1,16 @@
 const express = require('express');
 const querystring = require('qs');
 
-// properties to be used in the Spotify login request
 const clientId = process.env.CLIENT_ID;
-const redirectUri = 'http://localhost:9000/discover';
+const redirectUri = 'http://localhost:9000/authenticate';
 
 const router = express.Router();
 
 /**
  * @param {string} length
  * @returns {string}
- * creates a random string to be used for state property of the query to Spotify
- * random string is used for security purposes with Spotify API
+ * Creates a random string to be used for "state" property of the query to Spotify.
+ * Random string is used for security purposes with Spotify API.
  */
 function generateRandomString(length) {
   let randomString = '';
@@ -23,7 +22,11 @@ function generateRandomString(length) {
   return randomString;
 }
 
-// redirects user to Spotify login page
+/**
+ * Redirects user to Spotify login page.
+ * Once the user logs in, they are redirected to /authenticate,
+ * where they are granted an access and refresh token to access the Spotify API.
+ */
 router.get('/', (req, res) => {
   const state = generateRandomString(16);
   const scope = 'user-read-private user-read-email';
