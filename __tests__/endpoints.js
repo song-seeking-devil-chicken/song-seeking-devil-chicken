@@ -1,7 +1,7 @@
 const request = require('supertest');
 const fs = require('fs');
 const path = require('path');
-const db = require('../server/models');
+const db = require('../server/models/songs');
 
 const server = 'http://localhost:3000';
 
@@ -48,6 +48,24 @@ describe('Route integration', () => {
         request(server)
           .get('/')
           .expect('Content-Type', /text\/html/)
+          .expect(200);
+      });
+    });
+  });
+  describe('/api/login', () => {
+    describe('GET', () => {
+      it('responds with 200 status', () => {
+        request(server)
+          .get('/api/login')
+          .expect(200);
+      });
+    });
+  });
+  describe('/api/authenticate', () => {
+    describe('GET', () => {
+      it('responds with 200 status', () => {
+        request(server)
+          .get('/api/authenticate')
           .expect(200);
       });
     });
