@@ -38,7 +38,6 @@ export default function App() {
     <>
       <Link to="/profile">Profile</Link>
       <Link to="/songsearch">Song Search</Link>
-      <Link to="/playlists">Playlists</Link>
       <a href="#" onClick={logOut}>Sign Out</a>
     </>
   );
