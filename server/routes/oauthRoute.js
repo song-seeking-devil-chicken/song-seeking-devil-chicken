@@ -40,15 +40,20 @@ async function getAccessToken(code, state) {
       refreshToken: response.data.refresh_token,
     };
   } catch (error) {
-    console.log(error);
     return error;
   }
 }
 
+/**
+ * @param {String} accessToken
+ * @returns {String}
+ * Sends a get request to Spotify API to retrieve user email based on their access token.
+ * Invoked right after an access token is generated.
+ * Used to populate a Session document in the MongoDB database.
+ */
 async function getUserEmail(accessToken) {
   const response = await axios.get('https://api.spotify.com/v1/me', {
     headers: {
-      // TODO: Authorization is more than just the access token...
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -58,8 +63,9 @@ async function getUserEmail(accessToken) {
 }
 
 /**
- * Calls getAccessToken().
+ * Calls getAccessToken() and getUserEmail().
  * Stores the access and refresh token granted by Spotify.
+ * Creates a new Session MongoDB document that represents the user's session.
  * Redirects user to their home page.
  */
 router.get('/', async (req, res) => {
@@ -74,11 +80,6 @@ router.get('/', async (req, res) => {
     );
   } else {
     const { accessToken, refreshToken } = await getAccessToken(code, state);
-    /**
-     * TODO:
-     * determine appropriate redirect
-     * store access token on server side
-     */
     // console.log('ACCESS TOKEN:', accessToken);
     // console.log('REFRESH TOKEN:', refreshToken);
     const email = await getUserEmail(accessToken);
@@ -88,8 +89,16 @@ router.get('/', async (req, res) => {
       refToken: refreshToken,
     });
 
-    // TODO: create cookie
-    res.cookie('session-id', newSession.id);
+    res.cookie('session-id', newSession.id, {
+      /**
+       * Cookie expires after 1 hour.
+       * Set to (5 * 1000) to see what happens when the cookie expires in 5 seconds.
+       * TL;DR it disappears when you refresh the page after 5 seconds.
+       * Cookie expiry is in Zulu time in the Chrome browser by default.
+       */
+      maxAge: (3600 * 1000),
+      httpOnly: true,
+    });
     res.redirect('http://localhost:9000/profile');
   }
 });
