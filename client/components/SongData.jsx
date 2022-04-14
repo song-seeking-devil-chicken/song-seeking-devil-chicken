@@ -9,7 +9,7 @@ export default function SongData() {
 
   if (loading) {
     return (
-      <div>
+      <div className="songData">
         Loading...
         <button type="button" onClick={loadSongs}>Click here to load</button>
       </div>
@@ -18,6 +18,8 @@ export default function SongData() {
 
   return (
     <div className="songData">
+      <span>Tempo (BPM):</span>
+      <span>100</span>
       <span>Acousticness:</span>
       <span>1</span>
       <span>Danceability:</span>
@@ -27,6 +29,12 @@ export default function SongData() {
       <span>Key:</span>
       <span>C#</span>
       <span>Liveness:</span>
+      <span>1</span>
+      <span>Time Signature:</span>
+      <span>3/4</span>
+      <span>Valence:</span>
+      <span>1</span>
+      <span>Speechiness:</span>
       <span>1</span>
     </div>
   );
