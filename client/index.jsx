@@ -9,7 +9,7 @@ import Home from './containers/Home';
 import styles from './scss/styles.scss';
 
 const root = createRoot(
-  document.getElementById('root'),
+  document.getElementById('root') || document.createElement('div'),
 );
 
 root.render(
