@@ -67,16 +67,26 @@ router.get('/audioFeatures', async (req, res, next) => {
 });
 
 router.get('/myPlaylists', async (req, res, next) => {
+  console.log('hello, you made it to /myPlaylists');
   const id = req.cookies['session-id'];
-  // TODO: change from hard-coded trackId to req.query params
   const me = await SAPI.invokeSession(id).getMe();
-  // console.log(me);
   const myId = me.body.id;
   const myPlaylists = await SAPI.invokeSession(id).getUserPlaylists(myId)
-    .then((response) => response.body);
-  console.log(myPlaylists);
-  res.locals.body = myPlaylists.items;
+    .then((response) => response.body.items);
+  res.locals.body = myPlaylists;
   return next();
 });
+
+// router.get('/myRecentSongs', async (req, res, next) => {
+//   console.log('hello, you made it to /myRecentSongs');
+//   const id = req.cookies['session-id'];
+//   const me = await SAPI.invokeSession(id).getMe();
+//   const myId = me.body.id;
+//   const myRecentSongs = await SAPI.invokeSession(id).getMyRecentlyPlayedTracks(myId)
+//     .then((response) => response);
+//   console.log(myRecentSongs);
+//   res.locals.body = myRecentSongs;
+//   return next();
+// });
 
 module.exports = router;
