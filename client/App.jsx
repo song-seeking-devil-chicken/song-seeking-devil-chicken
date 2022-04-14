@@ -30,7 +30,7 @@ export default function App(props) {
               marginRight: 'auto',
             }}
           />
-          { (loggedIn) ? loggedInLinks : <a href="#" onClick={() => setLoginStatus(true)}>Sign In</a> }
+          { (loggedIn) ? loggedInLinks : <a href="/api/login" onClick={() => setLoginStatus(true)}>Sign In</a> }
         </div>
       </div>
       <Outlet context={setLoginStatus} />
