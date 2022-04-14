@@ -40,6 +40,7 @@ export default function Player(props) {
 
         player.addListener('ready', ({ device_id }) => {
           console.log('Ready with Device ID', device_id);
+          props.setPlayerID(device_id);
         })
 
         player.addListener('not_ready', ({ device_id }) => {

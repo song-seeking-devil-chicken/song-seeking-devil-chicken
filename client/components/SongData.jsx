@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function SongData() {
+export default function SongData(props) {
   const [loading, setLoading] = useState(true);
 
   function loadSongs() {

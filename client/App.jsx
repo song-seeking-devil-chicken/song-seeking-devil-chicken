@@ -5,6 +5,8 @@ import Player from './components/SpotifyPlayer';
 export default function App() {
   const [loggedIn, setLoginStatus] = useState(false);
   const [token, setToken] = useState(undefined);
+  const [playerID, setPlayerID] = useState(undefined);
+
   const nav = useNavigate();
   const getAuthStatus = async () => {
     return fetch('/api/checkAuth').then((res) => res.json()).then((res) => {
@@ -62,8 +64,8 @@ export default function App() {
           { (loggedIn) ? loggedInLinks : <a href="/api/login">Sign In</a> }
         </div>
       </div>
-      <Outlet context={setLoginStatus} />
-      <Player accessToken={token} />
+      <Outlet context={[playerID, token]} />
+      <Player accessToken={token} setPlayerID={setPlayerID} />
     </div>
   );
 
