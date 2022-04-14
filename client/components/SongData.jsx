@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 
 export default function SongData(props) {
-  const [loading, setLoading] = useState(true);
-
-  function loadSongs() {
-    setLoading(false);
-  }
-
-  if (loading) {
+  console.log(props.data);
+  
+  if (!data) {
     return (
       <div className="songData">
         Loading...
-        <button type="button" onClick={loadSongs}>Click here to load</button>
       </div>
     );
   }
