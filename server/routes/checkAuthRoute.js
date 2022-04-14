@@ -10,10 +10,9 @@ const router = express.Router();
  */
 
 router.get('/', async (req, res) => {
-  console.log(req.cookies);
-  const isSession = await Session.findById(req.cookies['session-id']).exec();
-  if (isSession) {
-    res.status(200).json({ authenticated: true });
+  const userSession = await Session.findById(req.cookies['session-id']).exec();
+  if (userSession) {
+    res.status(200).json({ authenticated: true, accessToken: userSession.authToken });
   } else {
     res.status(401).json({ authenticated: false });
   }
