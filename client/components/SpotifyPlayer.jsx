@@ -25,6 +25,10 @@ export default function Player(props) {
   const [current_track, setTrack] = useState(track);
 
   useEffect(() => {
+    if (player) {
+      
+    }
+
     if (props.accessToken && !player) {
       console.log('ping');
       const script = document.createElement('script');
@@ -60,6 +64,10 @@ export default function Player(props) {
 
           setTrack(state.track_window.current_track);
           setPaused(state.paused);
+
+          player.setVolume(0.25).then(() => {
+            console.log('volume set');
+          })
 
           player.getCurrentState().then( state => { 
               (!state)? setActive(false) : setActive(true) 
