@@ -23,24 +23,36 @@ const controllers = require('./controllers/controllers');
 
 // require routes
 const loginRoute = require('./routes/loginRoute');
+const logoutRoute = require('./routes/logoutRoute');
 const oauthRoute = require('./routes/oauthRoute');
 const checkAuthRoute = require('./routes/checkAuthRoute');
 
 /**
- * TODO: /api/login never actually reaches the final middleware function
  * Handles requests when user logs in to Song Seeking Devil Chicken.
  * User is redirected to Spotify login via this route.
  */
-app.use('/api/login', loginRoute, (req, res) => res.sendStatus(200));
+app.use('/api/login', loginRoute);
 
 /**
- * TODO: /authenticate never actually reaches the final middleware function
+ * Handles requests when user logs out of Song Seeking Devil Chicken.
+ * Frontend state is set to { authenticated: false } to protect private pages.
+ */
+app.use('/api/logout', logoutRoute);
+
+/**
  * Once a user logs in, they are redirected here.
  * User is given an access and refresh token here so that they can use the Spotify API.
  */
-app.use('/api/authenticate', oauthRoute, (req, res) => res.sendStatus(200));
+app.use('/api/authenticate', oauthRoute);
 
-app.use('/api/checkAuth', checkAuthRoute, (req, res) => res.sendStatus(200));
+/**
+ * Every time the index.html page is rendered, a get request is sent here.
+ * Middleware checks the cookie on the request to see if it is the sessions database...
+ * if it is, send back { authenticated: true } to signal to the frontend
+ * that the user is already authenticated. If they do not have an existing session,
+ * redirect them to the signin page.
+ */
+app.use('/api/checkAuth', checkAuthRoute);
 
 // should add a song to the database using the songSchema defined in models.js
 app.post('/api/addSong', controllers.addSong, (req, res) => {
