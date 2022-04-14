@@ -26,6 +26,7 @@ const loginRoute = require('./routes/loginRoute');
 const logoutRoute = require('./routes/logoutRoute');
 const oauthRoute = require('./routes/oauthRoute');
 const checkAuthRoute = require('./routes/checkAuthRoute');
+const apiCallRouter = require('./routes/apiCallRouter');
 
 /**
  * Handles requests when user logs in to Song Seeking Devil Chicken.
@@ -38,6 +39,11 @@ app.use('/api/login', loginRoute);
  * Frontend state is set to { authenticated: false } to protect private pages.
  */
 app.use('/api/logout', logoutRoute);
+
+/**
+ * Handles API calls once users are authenticated
+ */
+app.use('/api/call', apiCallRouter, (req, res) => res.json(res.locals.body));
 
 /**
  * Once a user logs in, they are redirected here.
