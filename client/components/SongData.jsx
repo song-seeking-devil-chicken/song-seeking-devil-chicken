@@ -30,11 +30,11 @@ export default function SongData() {
       <span>C#</span>
       <span>Liveness:</span>
       <span>1</span>
-      <span>Time Signature</span>
+      <span>Time Signature:</span>
       <span>3/4</span>
-      <span>Valence</span>
+      <span>Valence:</span>
       <span>1</span>
-      <span>Speechiness</span>
+      <span>Speechiness:</span>
       <span>1</span>
     </div>
   );

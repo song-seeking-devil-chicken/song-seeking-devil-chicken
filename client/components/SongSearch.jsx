@@ -35,6 +35,7 @@ export default function SongSearch() {
           artists: artistNames.join(' '),
           album: ele.album.name,
           albumImg: ele.album.images[0].url,
+          id: ele.id,
         }
 
         searchResults.push(song);
