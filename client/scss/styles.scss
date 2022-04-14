@@ -114,7 +114,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
+  gap: 0.5em;
   width: 50%;
 }
 
@@ -135,4 +135,38 @@ body {
   height: 3em;
   width: 3em;
   border: none;
+}
+
+.track {
+  background-color: #1B1212;
+  width: 25em;
+  display: flex;
+  gap: 0.5em;
+  border: #1db954 4px solid;
+  border-radius: 20px;
+  padding: 1em;
+}
+
+.trackData {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;
+}
+
+.track:hover {
+  cursor: pointer;
+}
+
+.track h3 {
+  color: #1ed760;
+  padding: 0;
+  margin: 0 0 0.5em 0;
+}
+
+.track h4 {
+  color: white;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
 }

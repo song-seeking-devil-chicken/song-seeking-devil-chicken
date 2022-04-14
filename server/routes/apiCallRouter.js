@@ -14,7 +14,11 @@ router.get('/search', async (req, res, next) => {
   console.log('hello, you made it to /search');
   const id = req.cookies['session-id'];
   // const { query } = req.params;
-  const query = 'Love';
+  const query = req.query.query;
+  if (!query) {
+    res.locals.body = [];
+    return next();
+  }
   /**
    * SAPI.invokeSession(id).searchTracks(query) returns an object.
    * Access the array of songs with response.body.tracks.items.
