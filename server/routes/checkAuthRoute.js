@@ -10,7 +10,6 @@ const router = express.Router();
  */
 
 router.get('/', async (req, res) => {
-  console.log(req.cookies);
   const isSession = await Session.findById(req.cookies['session-id']).exec();
   if (isSession) {
     res.status(200).json({ authenticated: true });
