@@ -14,7 +14,7 @@ router.get('/search', async (req, res, next) => {
   console.log('hello, you made it to /search');
   const id = req.cookies['session-id'];
   // const { query } = req.params;
-  const query = req.query.query;
+  const { query } = req.query;
   if (!query) {
     res.locals.body = [];
     return next();
@@ -33,5 +33,60 @@ router.get('/search', async (req, res, next) => {
   }
   return next();
 });
+
+router.get('/audioFeatures', async (req, res, next) => {
+  console.log('hello, you made it to /audioFeatures');
+  const id = req.cookies['session-id'];
+  // TODO: change from hard-coded trackId to req.query params
+  const audioFeatures = await SAPI.invokeSession(id).getAudioFeaturesForTrack('3v3VFa7Dt32gNR27jfw7DG')
+    .then((response) => response.body);
+  res.locals.body = audioFeatures;
+  return next();
+
+  // object that's returned with audioFeatures:
+  // {
+  //   danceability: 0.597,
+  //   energy: 0.845,
+  //   key: 1,
+  //   loudness: -7.803,
+  //   mode: 0,
+  //   speechiness: 0.0335,
+  //   acousticness: 0.00267,
+  //   instrumentalness: 0.173,
+  //   liveness: 0.203,
+  //   valence: 0.63,
+  //   tempo: 140.005,
+  //   type: 'audio_features',
+  //   id: '3v3VFa7Dt32gNR27jfw7DG',
+  //   uri: 'spotify:track:3v3VFa7Dt32gNR27jfw7DG',
+  //   track_href: 'https://api.spotify.com/v1/tracks/3v3VFa7Dt32gNR27jfw7DG',
+  //   analysis_url: 'https://api.spotify.com/v1/audio-analysis/3v3VFa7Dt32gNR27jfw7DG',
+  //   duration_ms: 233819,
+  //   time_signature: 4
+  // }
+});
+
+router.get('/myPlaylists', async (req, res, next) => {
+  console.log('hello, you made it to /myPlaylists');
+  const id = req.cookies['session-id'];
+  const me = await SAPI.invokeSession(id).getMe();
+  const myId = me.body.id;
+  const myPlaylists = await SAPI.invokeSession(id).getUserPlaylists(myId)
+    .then((response) => response.body.items);
+  res.locals.body = myPlaylists;
+  return next();
+});
+
+// router.get('/myRecentSongs', async (req, res, next) => {
+//   console.log('hello, you made it to /myRecentSongs');
+//   const id = req.cookies['session-id'];
+//   const me = await SAPI.invokeSession(id).getMe();
+//   const myId = me.body.id;
+//   const myRecentSongs = await SAPI.invokeSession(id).getMyRecentlyPlayedTracks(myId)
+//     .then((response) => response);
+//   console.log(myRecentSongs);
+//   res.locals.body = myRecentSongs;
+//   return next();
+// });
 
 module.exports = router;

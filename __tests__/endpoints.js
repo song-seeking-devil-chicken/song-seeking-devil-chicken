@@ -70,4 +70,13 @@ describe('Route integration', () => {
       });
     });
   });
+  describe('/api/checkAuth', () => {
+    describe('GET', () => {
+      it('responds with 200 status', () => {
+        request(server)
+          .get('/api/checkAuth')
+          .expect(200);
+      });
+    });
+  });
 });
