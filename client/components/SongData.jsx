@@ -5,14 +5,6 @@ export default function SongData() {
 
   function loadSongs() {
     setLoading(false);
-    
-    async function getData() {
-      return fetch('/api/call/me').then((res) => res.json()).then((res) => {
-        console.log(res);
-      })
-    }
-    
-    getData();
   }
 
   if (loading) {
