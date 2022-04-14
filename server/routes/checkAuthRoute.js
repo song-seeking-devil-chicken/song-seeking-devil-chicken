@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  console.log(req.cookies);
-  res.sendStatus(200);
+  res.status(200).json({ authenticated: true });
 });
 
 module.exports = router;
