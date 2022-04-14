@@ -1,4 +1,4 @@
-const api = require('spotify-web-api-js');
+const api = require('spotify-web-api-node');
 
 const spotifyAPI = { sessions: {} };
 
@@ -7,6 +7,10 @@ const spotifyAPI = { sessions: {} };
 
 spotifyAPI.createSession = (sessionID, credentials) => {
   spotifyAPI.sessions[sessionID] = new api(credentials);
+}
+
+spotifyAPI.deleteSession = (sessionID, credentials) => {
+  delete spotifyAPI.sessions[sessionID];
 }
 
 spotifyAPI.invokeSession = (sessionID) => {

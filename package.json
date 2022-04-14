@@ -41,7 +41,8 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-test-renderer": "^18.0.0",
-    "spotify-web-api-js": "^1.5.2"
+    "spotify-web-api-js": "^1.5.2",
+    "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

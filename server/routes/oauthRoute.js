@@ -3,7 +3,9 @@ const querystring = require('qs');
 const axios = require('axios');
 // const { json } = require('body-parser');
 const Session = require('../models/Session');
+require('dotenv').config();
 
+const spotifyAPIcontroller = require('../controllers/spotifyAPIcontroller');
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const redirectUri = `${process.env.BASE_URL}/api/authenticate`;
@@ -88,6 +90,14 @@ router.get('/', async (req, res) => {
       authToken: accessToken,
       refToken: refreshToken,
     });
+
+    // Instantiate a spotify-web-api-node object with user credentials and store for future API calls
+    const auth = { clientId: process.env.CLIENT_ID, clientSecret: process.env.CLIENT_SECRET, redirectUri: redirectUri };
+    spotifyAPIcontroller.createSession(newSession.id, auth);
+    spotifyAPIcontroller.invokeSession(newSession.id).setAccessToken(accessToken);
+    
+    // const output = await spotifyAPIcontroller.invokeSession(newSession.id).getMe();
+    // console.log(output);
 
     res.cookie('session-id', newSession.id, {
       /**
