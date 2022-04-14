@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Track from './Track';
 import { useOutletContext } from 'react-router-dom';
 
@@ -80,7 +81,6 @@ export default function SongSearch() {
     )
   }
 
-
   return (
     <div className="searchResultContainer">
       <div className="songSearch">
@@ -92,7 +92,9 @@ export default function SongSearch() {
           <span>Album:</span>
           <input type="text" id="searchAlbum" />
         </div>
-        <button type="button" onClick={search}>&#x1F50D;</button>
+        <button type="button" onClick={search}>
+          <SearchRoundedIcon />
+        </button>
       </div>
       {tracks}
     </div>
