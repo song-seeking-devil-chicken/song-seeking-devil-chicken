@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 
 export default function App() {
   const [loggedIn, setLoginStatus] = useState(false);
-
+  const nav = useNavigate();
   const getAuthStatus = async () => {
     return fetch('/api/checkAuth').then((res) => res.json()).then((res) => {
       if (res.authenticated === true) {
@@ -17,6 +17,7 @@ export default function App() {
   const logOut = async () => {
     fetch('/api/logout').then((res) => res.json()).then((res) => {
       setLoginStatus(res.authenticated);
+      nav('/home');
     }).catch((err) => console.log(err));
   }
 
@@ -27,8 +28,6 @@ export default function App() {
       });
     }
   });
-
-  
 
   const loggedInLinks = (
     <>
@@ -56,6 +55,7 @@ export default function App() {
               marginRight: 'auto',
             }}
           />
+          <Link to="/home">Home</Link>
           { (loggedIn) ? loggedInLinks : <a href="/api/login">Sign In</a> }
         </div>
       </div>

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import ProfileContainer from './containers/ProfileContainer';
 import SearchContainer from './containers/SearchContainer';
+import Home from './containers/Home';
 // eslint-disable-next-line no-unused-vars
 import styles from './scss/styles.scss';
 
@@ -15,6 +16,7 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
+        <Route path="home" element={<Home />} />
         <Route path="songsearch" element={<SearchContainer />} />
         <Route path="profile" element={<ProfileContainer />} />
         <Route
