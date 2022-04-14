@@ -3,7 +3,7 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Track from './Track';
 import { useOutletContext } from 'react-router-dom';
 
-export default function SongSearch() {
+export default function SongSearch(props) {
   const [results, updateResults] = useState([]);
   const [playerID, token] = useOutletContext();
 
@@ -55,8 +55,9 @@ export default function SongSearch() {
   for (let i = 0; i < results.length; i++) {
     const getAdvanced = () => {
       const id = results[i].id;
-      fetch('/api/call/audioFeatures?' + id).then((res) => res.json()).then((res) => {
-        console.log(res);
+      fetch('/api/call/audioFeatures?id=' + id).then((res) => res.json()).then((res) => {
+        console.log('from server', res);
+        props.setData(res);
       })
     }
 
@@ -76,8 +77,13 @@ export default function SongSearch() {
       });
     }
 
+    const changeState = () => {
+      playSong();
+      getAdvanced();
+    }
+
     tracks.push(
-      <Track key={`trackID${i}`} data={results[i]} playSong={playSong} getAdvanced={getAdvanced} />
+      <Track key={`trackID${i}`} data={results[i]} playSong={playSong} getAdvanced={getAdvanced} changeState={changeState} />
     )
   }
 

@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import PauseCircleFilledRoundedIcon from '@mui/icons-material/PauseCircleFilledRounded';
+import PauseCircleOutlineRoundedIcon from '@mui/icons-material/PauseCircleOutlineRounded';
+import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 
 const track = {
   name: "",
@@ -11,7 +17,6 @@ const track = {
       { name: "" }
   ]
 }
-
 
 export default function Player(props) {
   const [is_paused, setPaused] = useState(false);
@@ -46,7 +51,7 @@ export default function Player(props) {
         player.addListener('not_ready', ({ device_id }) => {
           console.log('Device ID has gone offline', device_id);
         })
-        
+
         player.addListener('player_state_changed', ( state => {
 
           if (!state) {
@@ -76,9 +81,13 @@ export default function Player(props) {
           <div className="now-playing__name">{current_track.name}</div>
           <div className="now-playing__artist">{current_track.artists[0].name}</div>
         </div>
-        <button className="btn-spotify" onClick={() => { player.previousTrack() }} >&lt;&lt;</button>
-        <button className="btn-spotify" onClick={() => { player.togglePlay() }} >{ is_paused ? "\u25B6" : "\u23F8" }</button>
-        <button className="btn-spotify" onClick={() => { player.nextTrack() }} >&gt;&gt;</button>
+        <button className="btn-spotify" onClick={() => { player.previousTrack() }} >
+          <SkipPreviousRoundedIcon />
+        </button>
+        <button className="btn-spotify" onClick={() => { player.togglePlay() }} >{ is_paused ? <PlayArrowRoundedIcon /> : <PauseRoundedIcon /> }</button>
+        <button className="btn-spotify" onClick={() => { player.nextTrack() }} >
+          <SkipNextRoundedIcon />
+        </button>
       </div>
     </div>
   );

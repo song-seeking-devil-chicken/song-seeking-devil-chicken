@@ -40,7 +40,7 @@ router.get('/audioFeatures', async (req, res, next) => {
   console.log('hello, you made it to /audioFeatures');
   const id = req.cookies['session-id'];
   // TODO: change from hard-coded trackId to req.query params
-  const audioFeatures = await SAPI.invokeSession(id).getAudioFeaturesForTrack('3v3VFa7Dt32gNR27jfw7DG')
+  const audioFeatures = await SAPI.invokeSession(id).getAudioFeaturesForTrack(req.query.id)
     .then((response) => response.body);
   res.locals.body = audioFeatures;
   return next();

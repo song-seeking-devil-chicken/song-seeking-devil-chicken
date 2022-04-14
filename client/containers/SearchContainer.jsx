@@ -7,7 +7,7 @@ export default function SearchContainer() {
   
   return (
     <div className="searchContainer">
-      <SongSearch />
+      <SongSearch setData={setData} />
       <SongData data={data} />
     </div>
   );
