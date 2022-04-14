@@ -18,7 +18,6 @@ export default function ProfileUserInfo() {
   useEffect(() => {
     if (!isLoaded) {
       getData().then((res) => {
-        console.log(res);
         profileObj.displayName = res.body.display_name;
         profileObj.profilePicURL = res.body.images[0].url;
         profileObj.spotifyURL = res.body.external_urls.spotify;
@@ -34,8 +33,8 @@ export default function ProfileUserInfo() {
   } else {
     return (
       <div className="profileUserInfo">
-        <h1>{profileObj.displayName}</h1>
         <img src={profileObj.profilePicURL} alt="Profile pic" />
+        <h1>{profileObj.displayName}</h1>
         <a href={profileObj.spotifyURL}><h3>Spotify Profile Page</h3></a>
       </div>
     );

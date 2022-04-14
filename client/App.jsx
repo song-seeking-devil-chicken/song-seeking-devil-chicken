@@ -4,11 +4,12 @@ import Player from './components/SpotifyPlayer';
 
 export default function App() {
   const [loggedIn, setLoginStatus] = useState(false);
+  const [token, setToken] = useState(undefined);
   const nav = useNavigate();
   const getAuthStatus = async () => {
     return fetch('/api/checkAuth').then((res) => res.json()).then((res) => {
       if (res.authenticated === true) {
-        return true;
+        return res;
       } else {
         return false;
       }
@@ -25,7 +26,8 @@ export default function App() {
   useEffect(() => {
     if (!loggedIn) {
       getAuthStatus().then((res) => {
-        setLoginStatus(res);
+        setLoginStatus(res.authenticated);
+        setToken(res.accessToken);
       });
     }
   });
@@ -61,7 +63,7 @@ export default function App() {
         </div>
       </div>
       <Outlet context={setLoginStatus} />
-      <Player />
+      <Player accessToken={token} />
     </div>
   );
 

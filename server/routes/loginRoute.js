@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
    * You can modify the scope...
    * https://developer.spotify.com/console/get-current-user/ -> press GET TOKEN
    */
-  const scope = 'user-read-private user-read-email';
+  const scope = 'streaming user-read-private user-read-email';
 
   res.redirect(`https://accounts.spotify.com/authorize?${querystring.stringify({
     response_type: 'code',
