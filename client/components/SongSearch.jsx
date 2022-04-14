@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Track from './Track';
+import { useOutletContext } from 'react-router-dom';
 
-export default function SongSearch() {
+export default function SongSearch(props) {
   const [results, updateResults] = useState([]);
+  const [playerID, token] = useOutletContext();
 
   function search() {
     const queryParameters = {
@@ -37,8 +39,9 @@ export default function SongSearch() {
           album: ele.album.name,
           albumImg: ele.album.images[0].url,
           id: ele.id,
+          uri: ele.uri,
         }
-
+        console.log(song);
         searchResults.push(song);
       })
       if (searchResults.length !== 0) updateResults(searchResults)
@@ -46,11 +49,41 @@ export default function SongSearch() {
     })
   }
 
+  
   const tracks = [];
 
   for (let i = 0; i < results.length; i++) {
+    const getAdvanced = () => {
+      const id = results[i].id;
+      fetch('/api/call/audioFeatures?id=' + id).then((res) => res.json()).then((res) => {
+        console.log('from server', res);
+        props.setData(res);
+      })
+    }
+
+    const playSong = () => {
+      const data = {
+        context_uri: results[i].uri,
+        device_id: playerID
+      }
+      console.log(data.context_uri);
+      console.log(data);
+      fetch('/api/call/playsong', {
+        method: 'put',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(data)
+      });
+    }
+
+    const changeState = () => {
+      playSong();
+      getAdvanced();
+    }
+
     tracks.push(
-      <Track key={`trackID${i}`} data={results[i]} />
+      <Track key={`trackID${i}`} data={results[i]} playSong={playSong} getAdvanced={getAdvanced} changeState={changeState} />
     )
   }
 

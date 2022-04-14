@@ -100,12 +100,22 @@ body {
   grid-template-columns: 1fr 1fr;
   border: #1db954 2px solid;
   border-radius: 5px;
-  height: 12em;
+  height: 16em;
+}
+
+.profile {
+  background-color: rgba(0,0,0,0.25);
+  width: 100vw;
 }
 
 .profileUserInfo {
   display: flex;
-  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+}
+
+.profileUserInfo img { 
+  border-radius: 100%;
 }
 
 .home {
@@ -132,7 +142,7 @@ body {
 .spotifyPlayer {
   background-color: black;
   color: white;
-  height: 5em;
+  height: 7em;
   width: 100vw;
   margin-top: auto;
   display: flex;
@@ -180,4 +190,22 @@ body {
   padding: 0;
   margin: 0;
   font-weight: 400;
+}
+
+.now-playing__cover {
+  height: 5em;
+  width: 5em;
+  display: none;
+}
+
+.now-playing__side {
+  margin-right: auto;
+}
+
+.spotifyWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  width: 40em;
 }

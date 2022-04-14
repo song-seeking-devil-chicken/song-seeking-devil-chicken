@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 
-export default function SongData() {
-  const [loading, setLoading] = useState(true);
-
-  function loadSongs() {
-    setLoading(false);
-  }
-
-  if (loading) {
+export default function SongData(props) {
+  console.log(props.data);
+  
+  if (!props.data) {
     return (
       <div className="songData">
         Loading...
-        <button type="button" onClick={loadSongs}>Click here to load</button>
       </div>
     );
   }
@@ -19,23 +14,23 @@ export default function SongData() {
   return (
     <div className="songData">
       <span>Tempo (BPM):</span>
-      <span>100</span>
+      <span>{props.data.tempo}</span>
       <span>Acousticness:</span>
-      <span>1</span>
+      <span>{props.data.acousticness}</span>
       <span>Danceability:</span>
-      <span>1</span>
+      <span>{props.data.danceability}</span>
       <span>Energy:</span>
-      <span>1</span>
+      <span>{props.data.energy}</span>
       <span>Key:</span>
-      <span>C#</span>
+      <span>{props.data.key}</span>
       <span>Liveness:</span>
-      <span>1</span>
+      <span>{props.data.liveness}</span>
       <span>Time Signature:</span>
-      <span>3/4</span>
+      <span>{props.data.time_signature}/4</span>
       <span>Valence:</span>
-      <span>1</span>
+      <span>{props.data.valence}</span>
       <span>Speechiness:</span>
-      <span>1</span>
+      <span>{props.data.speechiness}</span>
     </div>
   );
 }
