@@ -8,9 +8,11 @@ body {
 
 .mainPage {
   display:flex;
+  flex-direction: column;
+  align-items: center;
   font-family: 'Ubuntu', sans-serif;
   flex-wrap: wrap;
-  justify-content: center;
+  height: 100vh;
 }
 
 .navBarContainer {
@@ -41,11 +43,26 @@ body {
   text-decoration: none;
 }
 
+.songSearch {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.songSearch button {
+  height: 4em;
+  width: 4em;
+  border-radius: 100%;
+  border: none;
+}
+
 .searchContainer {
   display: flex;
   width: 70em;
   justify-content: center;
-  margin-top: 2em;
+  padding-top: 2em;
+  gap: 2em;
 }
 
 .songSearch input {
@@ -66,8 +83,13 @@ body {
 }
 
 .songData {
+  padding: 1em;
   display: grid;
-  grid-template-columns: 10em, 10em;
+  width: 50%;
+  grid-template-columns: 1fr 1fr;
+  border: #1db954 2px solid;
+  border-radius: 5px;
+  height: 12em;
 }
 
 .profileUserInfo {
@@ -79,4 +101,38 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.twoByTwo {
+  display: grid;
+  width: 20em;
+  grid-template-columns: 1fr 3fr;
+  grid-row-gap: 1em;
+}
+
+.searchResultContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  width: 50%;
+}
+
+.spotifyPlayer {
+  background-color: black;
+  color: white;
+  height: 5em;
+  width: 100vw;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.spotifyPlayer button {
+  border-radius: 100%;
+  height: 3em;
+  width: 3em;
+  border: none;
 }

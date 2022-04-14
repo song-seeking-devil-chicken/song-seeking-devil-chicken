@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
+import Player from './components/SpotifyPlayer';
 
 export default function App() {
   const [loggedIn, setLoginStatus] = useState(false);
@@ -60,6 +61,7 @@ export default function App() {
         </div>
       </div>
       <Outlet context={setLoginStatus} />
+      <Player />
     </div>
   );
 
