@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { useOutletContext } from "react-router-dom";
 
 export default function SongData() {
   const [loading, setLoading] = useState(true);
-  const authStatus = useOutletContext();
 
   function loadSongs() {
     setLoading(false);
-    authStatus(true);
   }
 
   if (loading) {

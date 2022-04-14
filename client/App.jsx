@@ -1,15 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 
-export default function App(props) {
-  const [loggedIn, setLoginStatus] = useState(props.auth());
+export default function App() {
+  const [loggedIn, setLoginStatus] = useState(false);
+
+  const getAuthStatus = async () => {
+    return fetch('/api/checkAuth').then((res) => res.json()).then((res) => {
+      if (res.authenticated === true) {
+        return true;
+      } else {
+        return false;
+      }
+    }).catch(() => false);
+  }
+
+  const logOut = async () => {
+    fetch('/api/logout').then((res) => res.json()).then((res) => {
+      setLoginStatus(res.authenticated);
+    }).catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    if (!loggedIn) {
+      getAuthStatus().then((res) => {
+        setLoginStatus(res);
+      });
+    }
+  });
+
+  
 
   const loggedInLinks = (
     <>
       <Link to="/profile">Profile</Link>
       <Link to="/songsearch">Song Search</Link>
       <Link to="/playlists">Playlists</Link>
-      <a href="#" onClick={() => setLoginStatus(false)}>Sign Out</a>
+      <a href="#" onClick={logOut}>Sign Out</a>
     </>
   );
 
