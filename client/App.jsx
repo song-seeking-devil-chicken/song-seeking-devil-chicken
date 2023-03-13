@@ -1,19 +1,72 @@
-import React, { Component } from 'react';
-import Home from './pages/Home';
+import React, { useEffect, useState } from 'react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import Player from './components/SpotifyPlayer';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+export default function App() {
+  const [loggedIn, setLoginStatus] = useState(false);
+  const [token, setToken] = useState(undefined);
+  const [playerID, setPlayerID] = useState(undefined);
+
+  const nav = useNavigate();
+  const getAuthStatus = async () => {
+    return fetch('/api/checkAuth').then((res) => res.json()).then((res) => {
+      if (res.authenticated === true) {
+        return res;
+      } else {
+        return false;
+      }
+    }).catch(() => false);
   }
 
-  render() {
-    return(
-      <div className="app" style={{maxWidth: '50%', margin: '0 auto'}}>
-        <h2 style={{display: 'flex', justifyContent: 'center'}}>Welcome to your dashboard!</h2>
-        <Home />
+  const logOut = async () => {
+    fetch('/api/logout').then((res) => res.json()).then((res) => {
+      setLoginStatus(res.authenticated);
+      nav('/home');
+    }).catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    if (!loggedIn) {
+      getAuthStatus().then((res) => {
+        setLoginStatus(res.authenticated);
+        setToken(res.accessToken);
+      });
+    }
+  });
+
+  const loggedInLinks = (
+    <>
+      <Link to="/profile">Profile</Link>
+      <Link to="/songsearch">Song Search</Link>
+      <a href="#" onClick={logOut}>Sign Out</a>
+    </>
+  );
+
+  const element = (
+    <div className="mainPage">
+      <div className="navBarContainer">
+        <div className="navBar">
+          <img
+            src="img/DevilChickenWithHeadphones.jpg"
+            alt="Song Seeking Devil Chicken"
+            style={{
+              borderRadius: '100%',
+              border: 'solid',
+              borderColor: '#0e8a3d',
+              borderWidth: '3px',
+              height: '4em',
+              width: '4em',
+              marginRight: 'auto',
+            }}
+          />
+          <Link to="/home">Home</Link>
+          { (loggedIn) ? loggedInLinks : <a href="/api/login">Sign In</a> }
+        </div>
       </div>
-    )
-  }
-}
+      <Outlet context={[playerID, token]} />
+      <Player accessToken={token} setPlayerID={setPlayerID} />
+    </div>
+  );
 
-export default App;
+  return element;
+}
