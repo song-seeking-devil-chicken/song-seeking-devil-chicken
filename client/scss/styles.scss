@@ -7,17 +7,26 @@ body {
 }
 
 .mainPage {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 100px auto 7em;
   align-items: center;
   font-family: "Oswald", sans-serif;
-  flex-wrap: wrap;
   height: 100vh;
 }
+
+// .mainPage {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   font-family: "Oswald", sans-serif;
+//   flex-wrap: wrap;
+//   height: 100vh;
+// }
 
 .profile {
   img {
     border-radius: 50%;
+    width: 30%;
   }
   h1 {
     text-align: center;
@@ -39,6 +48,8 @@ body {
   width: 100vw;
   height: 100px;
   gap: 3em;
+  margin-top: 0px;
+  padding-top: 0px;
 }
 
 .navBar {
@@ -115,10 +126,11 @@ body {
   flex-direction: column;
   gap: 1em;
   justify-content: center;
+  align-items: center;
 }
 
 .profileUserInfo img { 
-  border-radius: 100%;
+  border-radius: 50%;
 }
 
 .home {
